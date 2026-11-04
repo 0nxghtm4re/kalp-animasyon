@@ -12,7 +12,7 @@ def setup():
 def main():
     setup()
     
-    # Dünyanın farklı dillerinde 100 farklı "Seni seviyorum" çevirisi
+    # Sol taraftaki Türkçe iltifatlar çıkarıldı, tamamen farklı dünya dilleri eklendi
     phrases = [
         "Seni seviyorum", "I love you", "Te amo", "Ti amo", "Je t'aime",
         "Ich liebe dich", "Kocham cię", "Aku cinta kau", "Я тебя люблю",
@@ -36,7 +36,7 @@ def main():
         "Ya vas lubil", "Obicham te mnogo", "Ljubim te iz srca", "Te quiero mi vida",
         "Querido mio", "Ooh la la", "Amore grande", "Un amore così grande",
         "Te amo mi amor", "Forever my love", "Te quiero tanto", "All my love",
-        "True love", "Te amo para siempre", "Seni her şeyden çok seviyorum"
+        "True love", "Te amo para siempre", "Hlub tshav puam"
     ]
     
     t = turtle.Turtle()
