@@ -1,59 +1,52 @@
-import tkinter as tk
 import math
 import random
+import turtle
 
-# 20 dil
-LOVE = [
-    "I love you", "Te amo", "Je t'aime", "Ich liebe dich", "Ti amo",
-    "Seni seviyorum", "Wo ai ni", "Aishiteru", "Saranghae", "Ya tebya lyublyu",
-    "Eu te amo", "Ana bahebik", "Mahal kita", "Aku cinta kamu", "S'agapo",
-    "Volim te", "Miluji te", "Kocham cie", "Te iubesc", "Ani ohev otach"
-]
+def setup():
+    """Ekran ve pencere ayarlarını yapar."""
+    turtle.setup(800, 600)
+    turtle.bgcolor("black")
+    turtle.title("I Love You - Heart Animation")
+    turtle.tracer(2)
 
-root = tk.Tk()
-root.configure(bg="black")
-root.geometry("900x800")
-canvas = tk.Canvas(root, width=900, height=800, bg="black", highlightthickness=0)
-canvas.pack()
+def heart_x(k):
+    """Kalp şeklinin X koordinatını hesaplar."""
+    return 15 * math.sin(k) ** 3
 
-# Ayarlar
-center_x = 450
-center_y = 420
-scale = 22
-colors = ["#ff0000", "#ff1a1a", "#ff3333", "#e60000", "#ff4d4d"]
+def heart_y(k):
+    """Kalp şeklinin Y koordinatını hesaplar."""
+    return (12 * math.cos(k) - 5 * math.cos(2 * k) - 
+            2 * math.cos(3 * k) - math.cos(4 * k))
 
-def is_inside(x, y):
-    nx = x / 16.0
-    ny = y / 13.0
-    return (nx**2 + ny**2 - 1)**3 - nx**2 * ny**3 < 0.05
-
-# Noktaları oluştur
-points = []
-while len(points) < 450:
-    r = random.random() * 16
-    theta = random.uniform(0, 2*math.pi)
-    x = r * math.cos(theta)
-    y = r * math.sin(theta) * 1.1
-    if is_inside(x, y):
-        points.append((x, y))
-
-# ALTTAN ÜSTE SIRALA - en alttan başlasın
-points.sort(key=lambda p: p[1])
-
-# Direkt çiz
-for i, (x, y) in enumerate(points):
-    cx = x * scale + center_x
-    cy = -y * scale + center_y
-    text = random.choice(LOVE)
-    color = random.choice(colors)
+def main():
+    setup()
     
-    if abs(x) < 4 and abs(y) < 4:
-        size = random.randint(11, 13)
-    else:
-        size = random.randint(8, 11)
+    # Farklı dillerde "Seni seviyorum" sözleri
+    phrases = [
+        "I love you", "Te amo", "Ti amo",
+        "Seni seviyorum", "Je t'aime",
+        "Ich liebe dich", "Kocham cię",
+        "Aku cinta kau", "Я тебя люблю",
+        "Ik hou van jou", "Jeg elsker dig",
+        "Mahal kita", "Te quiero"
+    ]
+    
+    t = turtle.Turtle()
+    t.hideturtle()
+    t.penup()
+    
+    # Kalp şeklinde rastgele noktalara farklı dillerde sözler yazdıralım
+    for _ in range(50):
+        t.color(random.choice(["red", "pink", "hotpink", "deeppink", "magenta"]))
+        k = random.uniform(0, 2 * math.pi)
+        x = heart_x(k) * 20
+        y = heart_y(k) * 20
+        t.goto(x, y)
+        phrase = random.choice(phrases)
+        t.write(phrase, align="center", font=("Arial", 10, "bold"))
+        
+    turtle.update()
+    turtle.done()
 
-    # gölge
-    canvas.create_text(cx+1, cy+1, text=text, fill="#330000", font=("Consolas", size, "bold"))
-    canvas.create_text(cx, cy, text=text, fill=color, font=("Consolas", size, "bold"))
-
-root.mainloop()
+if __name__ == '__main__':
+    main()
